@@ -26,8 +26,14 @@ import { HeroKilledDragonEvent } from './events/impl/hero-killed-dragon.event';
         },
       ],
       eventHandlers: {
-        HeroFoundItemEvent: (data) => new HeroFoundItemEvent(data),
-        HeroKilledDragonEvent: (data) => new HeroKilledDragonEvent(data),
+        HeroFoundItemEvent: (data) => {
+          //console.log(data);
+          return new HeroFoundItemEvent(data);
+        },
+        HeroKilledDragonEvent: (data) => {
+          console.log(data);
+          return  new HeroKilledDragonEvent(data);
+        },
       },
     }),
   ],
