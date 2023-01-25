@@ -20,11 +20,15 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@juicycleff/nestjs-event-store": "^4.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/cqrs": "^9.0.1",
     "@nestjs/platform-express": "^9.0.0",
     "cli-color": "^2.0.3",
+    "node-eventstore-client": "^21.10.0",
+    "node-nats-streaming": "^0.3.2",
+    "randomstring": "^1.2.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },

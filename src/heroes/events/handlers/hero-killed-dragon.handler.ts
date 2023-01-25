@@ -6,7 +6,9 @@ import { HeroKilledDragonEvent } from '../impl/hero-killed-dragon.event';
 @EventsHandler(HeroKilledDragonEvent)
 export class HeroKilledDragonHandler
   implements IEventHandler<HeroKilledDragonEvent> {
+ 
   handle(event: HeroKilledDragonEvent) {
     console.log(clc.greenBright('HeroKilledDragonEvent...'));
+    console.log(clc.yellowBright(JSON.stringify(event.hero)));
   }
 }

@@ -6,9 +6,31 @@ import { HeroesGameController } from './heroes.controller';
 import { QueryHandlers } from './queries/handlers';
 import { HeroRepository } from './repository/hero.repository';
 import { HeroesGameSagas } from './sagas/heroes.sagas';
+import { EventStoreModule, EventStore, EventStoreSubscriptionType } from '@juicycleff/nestjs-event-store';
+import { HeroFoundItemHandler } from './events/handlers/hero-found-item.handler';
+import { HeroKilledDragonHandler } from './events/handlers/hero-killed-dragon.handler';
+import { HeroFoundItemEvent } from './events/impl/hero-found-item.event';
+import { HeroKilledDragonEvent } from './events/impl/hero-killed-dragon.event';
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule,
+    EventStoreModule.registerFeature({
+      featureStreamName: '$ce-hero',
+      type: 'event-store',
+      subscriptions: [
+        {
+          type: EventStoreSubscriptionType.Persistent,
+          stream: '$ce-hero',
+          persistentSubscriptionName: 'hero',
+          resolveLinkTos: true,  // Default is true (Optional)
+        },
+      ],
+      eventHandlers: {
+        HeroFoundItemEvent: (data) => new HeroFoundItemEvent(data),
+        HeroKilledDragonEvent: (data) => new HeroKilledDragonEvent(data),
+      },
+    }),
+  ],
   controllers: [HeroesGameController],
   providers: [
     HeroRepository,
